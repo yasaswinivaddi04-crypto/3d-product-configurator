@@ -1,16 +1,64 @@
-# React + Vite
+3D Product Configurator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive 3D product experience built with React, Vite, Three.js, React Three Fiber, and Drei.
 
-Currently, two official plugins are available:
+What I Built
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+I built a responsive 3D product configurator that allows users to explore and customize a product directly in the browser.
 
-## React Compiler
+Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Interactive 3D product scene
+- Mouse and touch rotation
+- Zoom controls
+- Product color customization
+- Auto-rotate mode
+- Wireframe mode
+- Reset configuration
+- Responsive mobile layout
+- Reduced-motion support
+- Lazy-loaded 3D viewer with a static fallback
+- Staged lighting, environment, and soft shadows
 
-## Expanding the ESLint configuration
+Performance
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The 3D canvas is loaded only when the viewer approaches the user's viewport. The renderer uses a limited device pixel ratio ("dpr") to reduce GPU workload, and reduced-motion preferences disable continuous animation and unnecessary shadows.
+
+The scene uses lightweight procedural geometry instead of a large external 3D model, keeping the experience simple and suitable for mobile devices.
+
+FE-10 Performance Lens
+
+The main performance considerations were:
+
+- Keep the 3D geometry lightweight.
+- Avoid unnecessarily high rendering resolution.
+- Load the 3D canvas only when needed.
+- Reduce continuous rendering for users who prefer reduced motion.
+- Keep the interface responsive on smaller screens.
+
+What I Would Add With More Time
+
+- A real compressed GLB product model using Draco or Meshopt.
+- More customizable product parts and materials.
+- Multiple environment and lighting presets.
+- Product texture customization.
+- More detailed performance measurements for low-end mobile devices.
+- Loading progress indicators for larger 3D assets.
+
+Tech Stack
+
+- React
+- Vite
+- Three.js
+- React Three Fiber
+- React Three Drei
+- CSS
+- Vercel
+
+Live Demo
+
+https://3d-product-configurator-qkwtasu6l-yasaswini-projects.vercel.app/
+
+Repository
+
+https://github.com/yasaswinivaddi04-crypto/3d-product-configurator
