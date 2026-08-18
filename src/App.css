@@ -1,0 +1,177 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b0f;
+  color: white;
+}
+
+button {
+  font: inherit;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+header {
+  max-width: 1100px;
+  margin: 0 auto 30px;
+}
+
+.badge {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #a5b4fc;
+}
+
+h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  margin: 10px 0;
+}
+
+header p {
+  color: #a1a1aa;
+  font-size: 18px;
+}
+
+main {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+}
+
+.viewer {
+  height: 600px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #15151b;
+}
+
+.panel {
+  padding: 28px;
+  border-radius: 24px;
+  background: #15151b;
+  align-self: start;
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.label {
+  color: #a1a1aa;
+  margin-top: 30px;
+}
+
+.colors {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.color {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+}
+
+.color:hover {
+  transform: scale(1.08);
+}
+
+.purple {
+  background: #6366f1;
+}
+
+.red {
+  background: #ef4444;
+}
+
+.green {
+  background: #22c55e;
+}
+
+.orange {
+  background: #f59e0b;
+}
+
+.white {
+  background: #f8fafc;
+}
+
+.actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.actions button {
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background: #222228;
+  color: white;
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background: #303038;
+}
+
+.hint {
+  display: grid;
+  gap: 6px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #29292f;
+}
+
+.hint span {
+  color: #888;
+  font-size: 13px;
+}
+
+.fallback {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+}
+
+.fallback-product {
+  width: 120px;
+  height: 90px;
+  border-radius: 20px;
+  background: #6366f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 800px) {
+  .app {
+    padding: 25px 15px;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .viewer {
+    height: 450px;
+  }
+}
