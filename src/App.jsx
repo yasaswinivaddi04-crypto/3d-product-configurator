@@ -1,36 +1,16 @@
-import { useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import {
-  OrbitControls,
-  Environment,
-  ContactShadows,
-} from "@react-three/drei";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import "./App.css";
-
-function Product({ color, wireframe }) {
-  return (
-    <mesh castShadow rotation={[0.2, 0.4, 0]}>
-      <boxGeometry args={[2.4, 1.8, 1.2]} />
-      <meshStandardMaterial
-        color={color}
-        metalness={0.35}
-        roughness={0.25}
-        wireframe={wireframe}
-      />
-    </mesh>
-  );
-}
 
 function App() {
   const [color, setColor] = useState("#6366f1");
   const [wireframe, setWireframe] = useState(false);
   const [autoRotate, setAutoRotate] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-
+  const ProductViewer = lazy(() => import("./ProductViewer"));
   const { ref: viewerRef, inView } = useInView({
     triggerOnce: true,
-    rootMargin: "200px",
+    rootMargin: "0px",
   });
 
   useEffect(() => {
@@ -79,63 +59,24 @@ function App() {
       <main>
         <div className="viewer" ref={viewerRef}>
           {inView ? (
-            <Canvas
-              shadows={!reducedMotion}
-              camera={{
-                position: [4, 3, 5],
-                fov: 45,
-              }}
-              dpr={[1, 1.5]}
-              frameloop={
-                reducedMotion ? "demand" : "always"
+            <Suspense
+              fallback={
+                <div className="fallback">
+                  <div className="fallback-product">3D</div>
+                  <p>Loading 3D viewer...</p>
+                </div>
               }
             >
-              <ambientLight intensity={0.8} />
-
-              <directionalLight
-                position={[5, 6, 5]}
-                intensity={2}
-                castShadow={!reducedMotion}
-              />
-
-              <Product
+              <ProductViewer
                 color={color}
                 wireframe={wireframe}
+                autoRotate={autoRotate}
+                reducedMotion={reducedMotion}
               />
-
-              <mesh
-                rotation={[-Math.PI / 2, 0, 0]}
-                position={[0, -1.2, 0]}
-                receiveShadow
-              >
-                <circleGeometry args={[3, 64]} />
-                <meshStandardMaterial color="#202027" />
-              </mesh>
-
-              <ContactShadows
-                position={[0, -1.2, 0]}
-                opacity={0.35}
-                scale={5}
-                blur={2}
-              />
-
-              <Environment preset="city" />
-
-              <OrbitControls
-                enableZoom
-                enablePan={false}
-                autoRotate={
-                  autoRotate && !reducedMotion
-                }
-                autoRotateSpeed={2}
-              />
-            </Canvas>
+            </Suspense>
           ) : (
             <div className="fallback">
-              <div className="fallback-product">
-                3D
-              </div>
-
+              <div className="fallback-product">3D</div>
               <p>3D viewer loading...</p>
             </div>
           )}
@@ -180,35 +121,25 @@ function App() {
 
           <div className="actions">
             <button
-              onClick={() =>
-                setAutoRotate(!autoRotate)
-              }
+              onClick={() => setAutoRotate(!autoRotate)}
+              aria-pressed={autoRotate}
             >
-              {autoRotate
-                ? "Stop Rotation"
-                : "Auto Rotate"}
+              {autoRotate ? "Stop Rotation" : "Auto Rotate"}
             </button>
 
             <button
-              onClick={() =>
-                setWireframe(!wireframe)
-              }
+              onClick={() => setWireframe(!wireframe)}
+              aria-pressed={wireframe}
             >
-              {wireframe
-                ? "Solid Mode"
-                : "Wireframe"}
+              {wireframe ? "Solid Mode" : "Wireframe"}
             </button>
 
-            <button onClick={reset}>
-              Reset
-            </button>
+            <button onClick={reset}>Reset</button>
           </div>
 
           <div className="hint">
             <strong>Controls</strong>
-            <span>
-              Drag to rotate • Scroll to zoom
-            </span>
+            <span>Drag to rotate • Scroll to zoom</span>
           </div>
         </section>
       </main>
